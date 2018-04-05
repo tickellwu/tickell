@@ -6,8 +6,9 @@ if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 # primary prompt
-#PROMPT='$FG[237]------------------------------------------------------------%{$reset_color%}
-PROMPT='$FG[105]%n@%m%(!.#.»)%{$reset_color%} '
+PROMPT='$FG[237]------------------------------------------------------------%{$reset_color%}
+$my_gray%~$git_prompt_info%{$reset_color%}
+$FG[105]%n@%m%(!.#.»)%{$reset_color%} '
 #PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
 #RPS1='${return_code}'
 
@@ -17,14 +18,15 @@ eval my_gray='$FG[245]'
 eval my_orange='$FG[214]'
 
 # right prompt
-if type "virtualenv_prompt_info" > /dev/null
-then
-	#RPROMPT='$(virtualenv_prompt_info)$my_gray%n@%m%{$reset_color%}%'
-	RPROMPT='$my_gray%~$git_prompt_info%{$reset_color%}%'
-else
-	#RPROMPT='$my_gray%n@%m%{$reset_color%}%'
-	RPROMPT='$my_gray%~$(git_prompt_info)%{$reset_color%}%'
-fi
+RPROMPT='$my_gray%D %* %w$git_prompt_info%{$reset_color%}%'
+#if type "virtualenv_prompt_info" > /dev/null
+#then
+#	#RPROMPT='$(virtualenv_prompt_info)$my_gray%n@%m%{$reset_color%}%'
+#	RPROMPT='$my_gray%m% %t$git_prompt_info%{$reset_color%}%'
+#else
+#	#RPROMPT='$my_gray%n@%m%{$reset_color%}%'
+#	RPROMPT='$my_gray%~$(git_prompt_info)%{$reset_color%}%'
+#fi
 
 # git settings
 ZSH_THEME_GIT_PROMPT_PREFIX="$FG[075]($FG[078]"
