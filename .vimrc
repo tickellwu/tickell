@@ -73,7 +73,7 @@ set shortmess=atI
 " 取消备份。 视情况自己改
 set nobackup
 " 关闭交换文件
-set noswapfile
+"set noswapfile
 
 
 " TODO: remove this, use gundo
@@ -230,10 +230,8 @@ set nrformats=
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
 "set relativenumber number
 au FocusLost * :set norelativenumber number
-"au FocusGained * :set relativenumber
 " 插入模式下用绝对行号, 普通模式下用相对
 autocmd InsertEnter * :set norelativenumber number
-"autocmd InsertLeave * :set relativenumber
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber number
@@ -455,8 +453,8 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
-noremap <left> :bp<CR>
-noremap <right> :bn<CR>
+"noremap <left> :bp<CR>
+"noremap <right> :bn<CR>
 
 
 " tab 操作
@@ -655,7 +653,7 @@ endif
 
 " theme主题
 set background=dark
-set t_Co=256
+set t_Co=16
 
 colorscheme solarized
 " colorscheme molokai
