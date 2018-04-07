@@ -109,6 +109,8 @@ set mouse-=a
 " Hide the mouse cursor while typing
 " set mousehide
 
+"set tags
+set tags =./tags;,tags
 
 " 修复ctrl+m 多光标操作选择的bug，但是改变了ctrl+v进行字符选中时将包含光标下的字符
 set selection=inclusive
@@ -228,17 +230,17 @@ set ttyfast
 set nrformats=
 
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
-"set relativenumber number
-au FocusLost * :set norelativenumber number
+set norelativenumber number
+"au FocusLost * :set norelativenumber number
 " 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber number
-  else
-    set relativenumber
-  endif
-endfunc
+"autocmd InsertEnter * :set norelativenumber number
+"function! NumberToggle()
+"  if(&relativenumber == 1)
+"    set norelativenumber number
+"  else
+"    set relativenumber
+"  endif
+"endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
@@ -276,9 +278,9 @@ set formatoptions+=B
 " others 其它设置
 "==========================================
 " vimrc文件修改之后自动加载, windows
-autocmd! bufwritepost _vimrc source %
+"autocmd! bufwritepost _vimrc source %
 " vimrc文件修改之后自动加载, linux
-autocmd! bufwritepost .vimrc source %
+"autocmd! bufwritepost .vimrc source %
 
 " 自动补全配置
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
@@ -345,12 +347,10 @@ noremap <F1> <Esc>"
 " F2 行号开关，用于鼠标复制代码用
 " 为方便复制，用<F2>开启/关闭行号显示:
 function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
+  if(&number)
     set number!
   else
-    set relativenumber!
+    set number
   endif
   set number?
 endfunc
@@ -366,6 +366,16 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
+
+function! Hidestatusline()
+    if &statusline =='%!airline#statusline(1)'
+        set statusline=%!airline#statusline(2)
+    else
+        set statusline=%!airline#statusline(1)
+    endif
+    set statusline?
+endfunc
+nnoremap <F7> :call Hidestatusline()<CR>
 
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
@@ -653,11 +663,11 @@ endif
 
 " theme主题
 set background=dark
-set t_Co=16
+set t_Co=256
 
 colorscheme solarized
 " colorscheme molokai
-
+set noshowmode
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
